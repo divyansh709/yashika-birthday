@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Yashika! 🎂</title>
+  <meta name="description" content="A very special birthday surprise for the most amazing Yashika 🌸" />
+
+  <!-- Google Fonts: Dancing Script (script) + Nunito (rounded) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- EmailJS (for silent notification) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== CONFETTI CANVAS ===== -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ===== FAIRY LIGHTS (fixed top bar) ===== -->
+  <div class="fairy-lights-bar" id="fairyLightsBar" aria-hidden="true"></div>
+
+  <!-- ===================================================
+       SECTION 1 — HERO
+  ==================================================== -->
+  <section class="hero" id="hero">
+    <!-- Floating emoji particles -->
+    <div class="particles" id="particles" aria-hidden="true"></div>
+
+    <!-- Soft bokeh orbs -->
+    <div class="bokeh" aria-hidden="true">
+      <span class="bokeh-orb orb1"></span>
+      <span class="bokeh-orb orb2"></span>
+      <span class="bokeh-orb orb3"></span>
+      <span class="bokeh-orb orb4"></span>
+    </div>
+
+    <div class="hero-content">
+      <!-- Top label -->
+      <p class="hero-label">🎀 &nbsp; A Very Special Day &nbsp; 🎀</p>
+
+      <!-- Main heading -->
+      <h1 class="hero-birthday">Happy Birthday</h1>
+      <h2 class="hero-name">
+        Yashika <span class="cake-icon" aria-label="birthday cake">🎂</span>
+      </h2>
+
+      <!-- Messages -->
+      <p class="hero-primary-msg">Have a Great Day and enjoy it fully 💕</p>
+      <p class="hero-sub-msg">
+        May every single moment today feel like magic —<br />
+        because you truly deserve the world &amp; so much more. ✨
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="hero-buttons">
+        <!-- Download Card (also fires the silent notification) -->
+        <button
+          class="btn btn-card"
+          id="btn-card"
+          onclick="handleCardDownload()"
+          title="Download your birthday card"
+        >
+          <span class="btn-icon">💌</span>
+          <span class="btn-text">Download Your Card</span>
+        </button>
+
+        <!-- Watch Flashback -->
+        <button
+          class="btn btn-flashback"
+          id="btn-flashback"
+          onclick="openVideo()"
+          title="Watch your flashback video"
+        >
+          <span class="btn-icon">🎬</span>
+          <span class="btn-text">Flashback </span>
+        </button>
+
+        <!-- Explore — scrolls to gallery -->
+        <button
+          class="btn btn-explore"
+          id="btn-explore"
+          onclick="scrollToGallery()"
+          title="Explore"
+        >
+          <span class="btn-icon">✨</span>
+          <span class="btn-text">Explore</span>
+        </button>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span class="scroll-label">scroll for a surprise</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       DIVIDER — String Lights
+  ==================================================== -->
+  <div class="lights-divider" id="lightsDivider" aria-hidden="true">
+    <div class="lights-wire"></div>
+    <div class="lights-row" id="lightsRow"></div>
+  </div>
+
+  <!-- ===================================================
+       SECTION 2 — PHOTO GALLERY
+  ==================================================== -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-header">
+      <h2 class="gallery-title">Birthday Girl ✨</h2>
+      <span class="gallery-emoji" aria-hidden="true">📸</span>
+    </div>
+
+    <!-- Polaroid grid — populated by JS -->
+    <div class="polaroid-grid" id="polaroidGrid"></div>
+  </section>
+
+  <!-- ===================================================
+       SECTION 3 — PERSONAL MESSAGE
+  ==================================================== -->
+  <section class="message-section" id="message">
+    <!-- Falling petals background -->
+    <div class="petals-container" id="petalsContainer" aria-hidden="true"></div>
+
+    <div class="message-card" id="messageCard">
+      <div class="card-top-bar"></div>
+
+      <span class="open-quote" aria-hidden="true">"</span>
+
+      <p class="poem">
+        <!-- Happy Birthday to the<br />
+        <br />
+        How truly amazing you are,<br />
+        How brightly your light glows. ✨<br /><br /> -->
+
+        May this year bring you<br />
+        All the happiness and cheer,<br />
+        May every dream you dream<br />
+        Finally bloom and appear. 🌸<br /><br />
+
+        <!-- You make every moment brighter<br />
+        Just by simply being you —<br /> -->
+        So today the whole universe celebrates<br />
+        Your Birthday 💕
+      </p>
+
+      <span class="close-quote" aria-hidden="true">"</span>
+
+      <div class="message-sign">— From  D1 ❤️</div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FOOTER
+  ==================================================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-hearts" aria-hidden="true">💕 &nbsp; 💖 &nbsp; 💕</div>
+      <!-- <p class="footer-text">Made with love, just for you 🎀</p> -->
+      <p class="footer-name">Happy Birthday, Yashika! 🌸</p>
+      <p class="footer-name">Enjoy Your Day! 😎</p>
+    </div>
+  </footer>
+
+  <!-- ===================================================
+       VIDEO MODAL
+  ==================================================== -->
+  <div
+    class="modal-overlay"
+    id="videoModal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Flashback video"
+    onclick="closeVideoOnOverlay(event)"
+  >
+    <div class="modal-box">
+      <button
+        class="modal-close"
+        id="modal-close-btn"
+        onclick="closeVideo()"
+        aria-label="Close video"
+      >✕</button>
+
+      <p class="modal-title">🎬 &nbsp; Your Flashback &nbsp; 🎬</p>
+
+      <div class="video-wrapper">
+        <!-- Native HTML5 video — served directly from the repo -->
+        <video
+          id="videoPlayer"
+          src=""
+          controls
+          playsinline
+          preload="none"
+          title="Birthday flashback video"
+        ></video>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
